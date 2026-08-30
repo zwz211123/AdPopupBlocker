@@ -1,7 +1,8 @@
 name: 请求支持新的 APP
 description: 请求为一个目前尚未支持的游戏添加广告拦截支持
 title: "[新增支持] "
-labels: []
+labels:
+  - "类型：新增应用"
 body:
   - type: markdown
     attributes:
