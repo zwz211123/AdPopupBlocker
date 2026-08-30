@@ -4,7 +4,8 @@ import java.util.List;
 
 final class TargetRegistry {
     private static final List<TargetSpec> TARGETS = List.of(
-            TargetSpec.pipeDreamFactory()
+            TargetSpec.pipeDreamFactory(),
+            TargetSpec.wonderfulCardWorld()
     );
 
     private TargetRegistry() {}

@@ -6,11 +6,20 @@
 
 ## 当前支持
 
+<details>
+<summary>展开查看支持的应用</summary>
+
 | 应用 | 包名 | 状态 |
 | --- | --- | --- |
 | 管道梦工厂 1.00 | `com.bzdjl.lyxn.tg` | 已加入规则 |
+| 奇妙卡牌世界 1.03 | `com.cyjl.qmkpsj.tg` | 已加入规则 |
 
-具体样本分析和 Hook 点见 [`docs/injection-analysis/管道梦工厂-com.bzdjl.lyxn.tg.md`](./docs/injection-analysis)。
+对应样本分析见：
+
+- [`管道梦工厂-com.bzdjl.lyxn.tg.md`](./docs/injection-analysis/管道梦工厂-com.bzdjl.lyxn.tg.md)
+- [`奇妙卡牌世界-com.cyjl.qmkpsj.tg.md`](./docs/injection-analysis/奇妙卡牌世界-com.cyjl.qmkpsj.tg.md)
+
+</details>
 
 ## 设计原则
 
@@ -83,6 +92,7 @@ app/build/outputs/apk/release/
 
 ```text
 com.bzdjl.lyxn.tg
+com.cyjl.qmkpsj.tg
 ```
 
 后续支持新应用时继续追加包名即可。
