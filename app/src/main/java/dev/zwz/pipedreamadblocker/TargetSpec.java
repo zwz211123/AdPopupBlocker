@@ -18,6 +18,16 @@ final class TargetSpec {
             )
     );
 
+    private static final HookRule WONDERFUL_CARD_WORLD_BANNER_RULE = HookRule.blockOnly(
+            "com.adv.core.AdsManager",
+            Set.of(
+                    "initBanner",
+                    "requestBanner",
+                    "showBannerView",
+                    "tryShowBannerView"
+            )
+    );
+
     final String packageName;
     final List<HookRule> rules;
 
@@ -36,7 +46,7 @@ final class TargetSpec {
     static TargetSpec wonderfulCardWorld() {
         return new TargetSpec(
                 "com.cyjl.qmkpsj.tg",
-                List.of(COMMON_FORCED_AD_RULE)
+                List.of(COMMON_FORCED_AD_RULE, WONDERFUL_CARD_WORLD_BANNER_RULE)
         );
     }
 }

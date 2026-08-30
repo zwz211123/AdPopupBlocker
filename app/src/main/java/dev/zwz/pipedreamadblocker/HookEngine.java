@@ -3,8 +3,6 @@ package dev.zwz.pipedreamadblocker;
 import android.util.Log;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.IdentityHashMap;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,7 +15,7 @@ final class HookEngine {
     private final XposedModule module;
     private final ClassLoader initialClassLoader;
     private final TargetSpec target;
-    private final Set<Class<?>> hookedClasses = Collections.newSetFromMap(new IdentityHashMap<>());
+    private final Set<Method> hookedMethods = ConcurrentHashMap.newKeySet();
     private final Set<String> waitingClassNames = ConcurrentHashMap.newKeySet();
     private volatile boolean classLoaderWatcherInstalled;
 
@@ -47,18 +45,18 @@ final class HookEngine {
     }
 
     private synchronized void installRuleOnClass(HookRule rule, Class<?> clazz, ClassLoader classLoader) {
-        if (hookedClasses.contains(clazz)) return;
-
         int installed = 0;
         for (String methodName : rule.methodNames) {
             for (Method method : ReflectionUtils.declaredMethodsNamed(clazz, methodName)) {
+                if (!hookedMethods.add(method)) continue;
+
                 try {
                     module.hook(method)
                             .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE)
                             .intercept(chain -> {
                                 Object receiver = chain.getThisObject();
                                 Object result = ReflectionUtils.defaultReturnValue(method);
-                                Log.i(TAG, "blocked forced ad: " + clazz.getName() + "#" + method.getName());
+                                Log.i(TAG, "blocked ad: " + clazz.getName() + "#" + method.getName());
                                 if (rule.resumeGameAfterBlock) {
                                     GameRecovery.resumeBestEffort(clazz, receiver, classLoader);
                                 }
@@ -66,15 +64,15 @@ final class HookEngine {
                             });
                     installed++;
                 } catch (Throwable t) {
+                    hookedMethods.remove(method);
                     Log.e(TAG, "hook failed: " + clazz.getName() + "#" + methodName, t);
                 }
             }
         }
 
         if (installed > 0) {
-            hookedClasses.add(clazz);
             waitingClassNames.remove(rule.className);
-            Log.i(TAG, "installed " + installed + " forced-ad hook(s) on " + clazz.getName());
+            Log.i(TAG, "installed " + installed + " ad hook(s) on " + clazz.getName());
         }
     }
 
@@ -97,7 +95,6 @@ final class HookEngine {
                         for (HookRule rule : target.rules) {
                             if (rule.className.equals(name)) {
                                 installRuleOnClass(rule, loaded, loaded.getClassLoader());
-                                break;
                             }
                         }
                         return result;

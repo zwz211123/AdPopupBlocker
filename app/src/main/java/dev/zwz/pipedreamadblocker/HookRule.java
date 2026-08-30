@@ -16,4 +16,8 @@ final class HookRule {
     static HookRule blockAndResume(String className, Set<String> methodNames) {
         return new HookRule(className, methodNames, true);
     }
+
+    static HookRule blockOnly(String className, Set<String> methodNames) {
+        return new HookRule(className, methodNames, false);
+    }
 }
