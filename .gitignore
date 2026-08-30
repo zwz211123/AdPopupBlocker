@@ -1,0 +1,21 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android local SDK config
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# Signing material
+*.jks
+*.keystore
+keystore.properties
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
