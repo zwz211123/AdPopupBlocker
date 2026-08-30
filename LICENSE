@@ -1,21 +1,48 @@
-MIT License
+AdPopupBlocker 源码使用许可条款
 
 Copyright (c) 2026 zwz211123
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+在遵守本许可条款的前提下，任何人均可免费获取、查看、使用、复制和修改本项目的源代码，并可以基于本项目进行二次开发，包括商业用途。
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. 允许的商业使用
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+允许个人或组织基于本项目进行具有实质性修改、功能扩展或集成的二次开发，并将二次开发后的成果用于商业用途。
+
+允许针对二次开发成果提供收费的技术支持、部署、维护、定制开发或其他增值服务。
+
+2. 禁止直接倒卖
+
+未经原作者书面许可，不得以收费方式直接销售、转售或有偿分发：
+
+1) 本项目的原始源代码；
+2) 本项目官方发布的二进制文件、安装包或其他构建产物；
+3) 仅进行改名、换图标、修改包名、修改界面文字、重新签名、重新打包等非实质性修改后的版本；
+4) 其他以本项目本身作为主要销售内容，而不存在实质性二次开发成果的版本。
+
+本条款不禁止真正具有实质性功能修改、功能扩展或系统集成的商业二次开发。
+
+3. 独立商业责任
+
+任何个人或组织基于本项目进行商业活动时，均以其自身名义独立开展相关活动，并自行承担全部法律责任。
+
+因使用、修改、分发、销售、部署或以其他方式利用本项目而产生的任何收入、利润、违法所得、税费、行政处罚、民事赔偿、刑事责任、诉讼费用、律师费用或其他法律后果，均由实施相关行为的个人或组织自行承担，与本项目原作者及其他贡献者无关。
+
+任何使用者不得以任何方式暗示或宣称其商业行为、产品或服务已经获得本项目原作者的授权、认可、担保、合作或背书，除非已经取得原作者明确的书面许可。
+
+4. 合规责任
+
+使用者应自行确保其使用本项目的方式符合其所在国家或地区适用的法律法规，并自行处理涉及第三方软件、应用、服务、知识产权、用户协议以及其他权利人的相关法律关系。
+
+原作者不对任何使用者利用本项目实施的行为承担保证、审查或监督义务。
+
+5. 无担保及责任限制
+
+本项目按“现状”提供，不提供任何明示或默示的担保，包括但不限于适销性、特定用途适用性以及不侵权担保。
+
+在适用法律允许的最大范围内，原作者和贡献者不对因使用、无法使用、修改、分发或其他涉及本项目的行为导致的任何直接或间接损失承担责任。
+
+6. 许可证终止
+
+任何违反本许可条款的行为将导致该行为人依据本许可证取得的授权自动终止。
+
+授权终止后，行为人应停止继续复制、修改、分发或商业使用受本许可证保护的版本，但法律另有规定的除外。
