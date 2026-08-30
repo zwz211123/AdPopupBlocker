@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 管道梦工厂 1.00 | `com.bzdjl.lyxn.tg` | 已加入规则 |
 
-具体样本分析和 Hook 点见 [`docs/injection-analysis/管道梦工厂-com.bzdjl.lyxn.tg.md`](./docs/injection-analysis/%E7%AE%A1%E9%81%93%E6%A2%A6%E5%B7%A5%E5%8E%82-com.bzdjl.lyxn.tg.md)。
+具体样本分析和 Hook 点见 [`docs/injection-analysis/管道梦工厂-com.bzdjl.lyxn.tg.md`](./docs/injection-analysis)。
 
 ## 设计原则
 
