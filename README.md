@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 管道梦工厂 1.00 | `com.bzdjl.lyxn.tg` | 已加入规则 |
 
-具体样本分析和 Hook 点见 [`ANALYSIS.md`](./ANALYSIS.md)。
+具体样本分析和 Hook 点见 [`docs/injection-analysis/管道梦工厂-com.bzdjl.lyxn.tg.md`](./docs/injection-analysis/%E7%AE%A1%E9%81%93%E6%A2%A6%E5%B7%A5%E5%8E%82-com.bzdjl.lyxn.tg.md)。
 
 ## 设计原则
 
@@ -31,6 +31,24 @@
 - `HookEngine`
 
 新增应用时，优先增加新的 `TargetSpec` 和 `HookRule`，而不是把包名、类名和方法名继续堆进模块入口。
+
+注入点分析统一存放在：
+
+```text
+docs/injection-analysis/
+```
+
+文件命名规则：
+
+```text
+APP名-包名.md
+```
+
+例如：
+
+```text
+管道梦工厂-com.bzdjl.lyxn.tg.md
+```
 
 ## 构建
 
