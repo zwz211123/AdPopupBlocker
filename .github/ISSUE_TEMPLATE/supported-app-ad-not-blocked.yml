@@ -1,7 +1,8 @@
 name: 已支持 APP 广告无法拦截
 description: 反馈已支持游戏中仍然存在未被拦截的主动弹出广告
 title: "[修复请求] "
-labels: []
+labels:
+  - "类型：广告修复"
 body:
   - type: markdown
     attributes:
