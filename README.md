@@ -96,4 +96,4 @@ com.cyjl.qmkpsj.tg
 
 ## License
 
-MIT License. See [`LICENSE`](./LICENSE).
+本项目采用自定义的 **AdPopupBlocker 源码使用许可条款**。允许基于本项目进行包含实质性修改、功能扩展或系统集成的商业二次开发，但禁止直接倒卖原始源码、官方构建产物以及仅进行改名、换图标、重新签名等非实质性修改后的版本。完整条款见 [`LICENSE`](./LICENSE)。
