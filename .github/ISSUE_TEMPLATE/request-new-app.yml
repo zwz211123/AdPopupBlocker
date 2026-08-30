@@ -1,0 +1,160 @@
+name: 请求支持新的 APP
+description: 请求为一个目前尚未支持的游戏添加广告拦截支持
+title: "[新增支持] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 请求支持新的 APP
+
+        这个模板用于请求 AdPopupBlocker 支持一个目前尚未支持的游戏。
+
+        提交前请先确认支持列表中确实没有这个游戏。
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 提交前先搜索仓库
+
+        在提交请求前，请先搜索：
+
+        - 已开启的 Issues
+        - **已经关闭的 Issues**
+        - 已合并的 Pull Requests
+        - **尚未合并的 Pull Requests**
+
+        请确认没有其他人已经请求过这个游戏，或者已经有人正在通过 PR 添加支持。
+
+        如果之前有相同请求被关闭，请先查看关闭原因。因为“不符合项目支持范围”等原因关闭的请求，请不要换个标题重新提交。
+
+  - type: input
+    id: game-name
+    attributes:
+      label: 游戏名称
+      description: 请填写完整名称。
+    validations:
+      required: true
+
+  - type: input
+    id: package-name
+    attributes:
+      label: 包名
+      description: 例如 com.example.game。如果不知道包名，可以使用 APK 信息查看工具获取。
+      placeholder: com.example.game
+    validations:
+      required: true
+
+  - type: input
+    id: game-version
+    attributes:
+      label: 游戏版本
+      description: 请填写当前使用版本或提供样本对应的版本号。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: game-source
+    attributes:
+      label: 游戏来源
+      description: 如果不同渠道使用不同包名，请在后面的补充信息中说明。
+      options:
+        - 官方网站
+        - TapTap
+        - 手机厂商应用商店
+        - 渠道服
+        - 其他来源
+    validations:
+      required: true
+
+  - type: textarea
+    id: ad-description
+    attributes:
+      label: 为什么希望加入支持
+      description: 请说明游戏中有哪些未经用户主动操作就会出现的广告，以及这些广告出现在哪些页面、什么情况下触发。
+      placeholder: |
+        例如：
+        - 启动游戏时自动出现开屏广告
+        - 游戏过程中定时弹出插屏广告
+        - 返回主界面时自动弹广告
+        - 页面底部自动出现 Banner
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 完整截图
+      description: 请尽量提供广告出现时的完整截图。不要只截广告本体，最好保留当前游戏页面、广告所在位置、页面顶部/底部 UI 和广告周围界面。涉及隐私可以打码，但尽量不要裁掉与页面结构有关的内容。
+      placeholder: 可直接拖入或粘贴图片
+    validations:
+      required: false
+
+  - type: textarea
+    id: activity
+    attributes:
+      label: Activity
+      description: 如果可以，请尽量提供广告出现时所在页面的 Activity。如果不同广告出现在不同页面，可以分别提供。不会获取不影响提交，但有能力获取时请尽量提供。
+      placeholder: |
+        开屏广告：com.example.game.SplashActivity
+        主界面 Banner：com.example.game.MainActivity
+    validations:
+      required: false
+
+  - type: textarea
+    id: apk-sample
+    attributes:
+      label: APK 样本或下载来源
+      description: 如果方便，请提供对应版本 APK。APK 太大时可以提供可靠的官方下载来源。请不要提供来历不明、经过修改或重新打包的 APK，除非问题本身只存在于该版本且已经明确说明。
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra-info
+    attributes:
+      label: 其他补充信息
+      description: 如果是渠道服、不同渠道包名不同，或还有其他需要说明的信息，请写在这里。
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## 项目支持范围
+
+        AdPopupBlocker **不是通用去广告模块**。
+
+        目前新增 APP 有两个额外限制：
+
+        - **不支持大众游戏。**
+        - **不支持非游戏 APP。**
+
+        这里的“大众游戏”主要指用户规模非常大、商业规模较大、广泛流行的主流游戏。
+
+        这个项目更偏向处理一些广告体验比较离谱、相对小众的游戏，而不是做成一个“什么 APP 都塞进来”的通用广告拦截器。
+
+        因此，即使技术上可以分析，作者也可能因为项目定位而拒绝加入支持。
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已经搜索过**已开启和已关闭的 Issues**，确认没有其他人已经请求过同一个游戏，或者已经阅读过之前关闭请求的原因。
+          required: true
+        - label: 我已经搜索过 Pull Requests，并确认目前没有**尚未合并的 PR**正在添加这个游戏的支持。
+          required: true
+        - label: 我知道这个项目是作者为爱发电、利用业余时间维护的，请求没有固定处理顺序，也没有任何完成时间保证。
+          required: true
+        - label: 我知道部分 APP 的加固、混淆或动态加载比较严实，即使提供了 APK，也不一定能够完整抓取所有广告 API，因此不保证一定能够完成支持。
+          required: true
+        - label: 我确认我希望拦截的是**未经用户许可主动弹出的广告**。本项目不会处理用户主动点击触发的激励广告、可选广告、广告奖励，也不会为了“彻底去广告”去破坏其他正常广告功能。
+          required: true
+        - label: 我确认这个 APP 是游戏，而不是普通工具、视频、社交、阅读、购物等非游戏 APP。
+          required: true
+        - label: 我确认这个游戏不属于大众主流游戏，并理解作者可以根据项目定位拒绝加入支持。
+          required: true
+        - label: 我已经检查过当前支持列表，没有找到这个游戏。
+          required: true
+        - label: 我已经尽可能说明广告出现的页面和触发方式，并尽可能提供了**完整截图和对应 Activity**。
+          required: true

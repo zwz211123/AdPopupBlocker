@@ -1,0 +1,136 @@
+name: 已支持 APP 广告无法拦截
+description: 反馈已支持游戏中仍然存在未被拦截的主动弹出广告
+title: "[修复请求] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 已支持 APP 广告无法拦截
+
+        这个模板用于反馈：**项目已经支持的游戏中，仍然有本应被拦截的主动弹出广告。**
+
+        如果你想请求支持一个目前尚未支持的游戏，请使用“请求支持新的 APP”模板。
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 提交前先搜索仓库
+
+        在提交 Issue 前，请先搜索：
+
+        - 已开启的 Issues
+        - **已经关闭的 Issues**
+        - 已合并的 Pull Requests
+        - **尚未合并的 Pull Requests**
+
+        请确认没有其他人已经反馈或正在修复同一个问题。
+
+        即使之前的相同 Issue 已经被关闭，也请先查看关闭原因和讨论内容，不要直接重新提交一个一模一样的 Issue。
+
+  - type: input
+    id: game-name
+    attributes:
+      label: 游戏名称
+      description: 请填写出现问题的游戏名称。
+    validations:
+      required: true
+
+  - type: input
+    id: package-name
+    attributes:
+      label: 包名
+      description: 例如 com.example.game
+      placeholder: com.example.game
+    validations:
+      required: true
+
+  - type: input
+    id: game-version
+    attributes:
+      label: 游戏版本
+      description: 请尽量填写准确的版本号。
+    validations:
+      required: true
+
+  - type: input
+    id: module-version
+    attributes:
+      label: AdPopupBlocker 版本
+      description: 例如 1.1.1 (3)
+      placeholder: 1.1.1 (3)
+    validations:
+      required: true
+
+  - type: textarea
+    id: ad-location
+    attributes:
+      label: 哪个广告没有被拦截
+      description: 请说明在哪个页面、进行了什么操作、什么时候弹出、是什么类型，以及是否每次都会出现。
+      placeholder: |
+        例如：进入主界面约 30 秒后，屏幕中央自动弹出全屏插屏广告。
+
+        不要只填写“有广告”“没拦住”“玩着玩着就弹了”之类的信息。
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 完整截图
+      description: 请尽量上传广告出现时的完整截图。最好不要只截广告本体，请把游戏当前页面、广告位置和周围界面一起保留下来。涉及隐私可以打码，但尽量不要裁掉与页面结构有关的部分。
+      placeholder: 可直接拖入或粘贴图片
+    validations:
+      required: false
+
+  - type: input
+    id: activity
+    attributes:
+      label: 当前 Activity
+      description: 如果可以，请提供广告出现时当前页面的 Activity。不会获取可以留空，但有能力获取时请尽量提供。
+      placeholder: com.example.game.MainActivity
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 请从启动游戏开始，按照实际操作顺序描述如何复现。如果不是每次都能复现，也请说明大概出现频率。
+      placeholder: |
+        1. 启动游戏
+        2. 进入主界面
+        3. 点击“开始游戏”
+        4. 完成一局游戏
+        5. 返回主界面
+        6. 自动弹出插屏广告
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志和其他信息
+      description: 如果有 LSPosed 日志、logcat、AdPopupBlocker Hook 日志、广告 SDK 相关日志或其他有帮助的信息，可以一起提供。
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已经搜索过**已开启和已关闭的 Issues**，没有找到相同问题，或者之前的问题已经明确无法解决且当前情况存在新的变化。
+          required: true
+        - label: 我已经搜索过 Pull Requests，并确认目前没有**尚未合并的 PR**正在处理同一个问题。
+          required: true
+        - label: 我知道这个项目是作者为爱发电、利用业余时间维护的，Issue 没有固定处理顺序，也没有任何完成时间保证。
+          required: true
+        - label: 我知道部分 APP 的加固、混淆或动态加载比较严实，即使提供了 APK，也不一定能够完整抓取所有广告 API，因此不保证一定能够修复。
+          required: true
+        - label: 我确认这里反馈的是**未经用户许可主动弹出的广告**。本项目不会处理用户主动点击触发的激励广告、可选广告、广告奖励，也不会为了“彻底去广告”去拦截其他正常广告功能。
+          required: true
+        - label: 我已经确认该游戏目前确实在 AdPopupBlocker 的支持列表中。
+          required: true
+        - label: 我已经尽可能说明广告出现在哪个页面、什么情况下出现，并尽可能提供了**完整截图和当前 Activity**。
+          required: true
