@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AdPopupBlocker</string>
+    <string name="app_description">按应用规则拦截未经用户主动触发的插屏、开屏等广告，并在必要时恢复应用运行状态。不处理激励广告、支付及其他正常业务功能。</string>
+</resources>
