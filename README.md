@@ -1,84 +1,74 @@
-# 管道梦工厂强插屏净化 (LSPosed Modern API 102)
+# AdPopupBlocker
 
-目标 APK：`管道梦工厂 1.00`
+一个基于 Modern Xposed API 102 的可扩展 LSPosed 模块，用于按应用规则拦截未经用户主动触发的插屏、开屏等广告，并在必要时恢复应用运行状态。
 
-- 包名：`com.bzdjl.lyxn.tg`
-- SHA-256：`335397b0898b6f4053357043e49a4efe1f88bf0b2db349cfd1f52fdc779bf2af`
-- 壳：`com.secneo.apkwrapper.*`，表层 DEX 仅 5 个类
-- 游戏：Unity IL2CPP
-- 广告聚合：A聚合，APK 自带信息列出穿山甲 7.2.3.3、广点通 4.660.1530、快手 4.6.30.1、BeiZi 5.2.2.11、Sigmob 4.24.6、点星等
-- 已定位总控类：`com.adv.core.AdsManager`
+本项目不会以“广告 SDK 一锅端”的方式工作。每个目标应用都有独立规则，只处理已经确认属于主动强插屏/开屏链路的调用，尽量保留激励广告、支付、排行榜上传及其他正常业务功能。
 
-## 当前阻断点
+## 当前支持
 
-模块只针对 `com.adv.core.AdsManager` 中明确属于主动插屏/开屏链路的方法：
+| 应用 | 包名 | 状态 |
+| --- | --- | --- |
+| 管道梦工厂 1.00 | `com.bzdjl.lyxn.tg` | 已加入规则 |
 
-- `showGameTimeInterstitial`
-- `showEventInterstitial`
-- `showInterstitalView`（原包拼写如此）
-- `TimeShowHomeInterstitial`
-- `fixTimerInterTask`
-- `showHotSplash`
-- `openHotSplash`
-- `showSplash`
+具体样本分析和 Hook 点见 [`ANALYSIS.md`](./ANALYSIS.md)。
 
-所有重载都会被拦截，并按返回类型返回安全默认值。
+## 设计原则
 
-## 明确保留
+- 只拦截明确识别出的主动弹窗广告入口。
+- 不全局屏蔽广告 SDK 的通用 `show()`。
+- 不处理激励广告链路。
+- 不处理支付、排行榜、成绩上传及其他正常业务功能。
+- 若目标应用在展示广告前主动暂停游戏，可在规则中配置对应恢复逻辑。
+- 推荐作用域通过 `META-INF/xposed/scope.list` 提供，但 `staticScope=false`，不会把模块锁死在固定应用列表中。
 
-没有 Hook 下列链路，因此不会主动破坏：
+## 扩展结构
 
-- 激励视频：`showVideo` / `requestVideo` / `onVideoRewarded` / `onInsertVideoRewarded` 等
-- 支付
-- 排行榜 / 成绩上传
-- 普通业务网络接口
-- Banner / Feed / Native 广告（当前版本不处理，因为需求只要求不经同意直接怼脸的主动弹窗）
+目标与 Hook 逻辑已经拆分为：
 
-## 暂停恢复
+- `TargetRegistry`
+- `TargetSpec`
+- `HookRule`
+- `HookEngine`
 
-样本字符串明确出现：
-
-- `AdsManager StarActPause`
-- `AdsManager StarActResume`
-
-因此每次阻断强插屏后，模块会优先反射调用同一 `AdsManager` 的 `StarActResume()`。如果壳后版本里该桥接失效，还会尝试从 `AdsManager` 持有的 `Activity` 找到 `UnityPlayer` 并调用 `resume()` 作为兜底。
-
-模块不会全局 Hook `Activity.onPause/onResume`，避免把正常切后台、支付页、系统弹窗等生命周期行为搅烂。
-
-## 作用域
-
-`META-INF/xposed/scope.list` 给出推荐作用域：
-
-`com.bzdjl.lyxn.tg`
-
-但 `module.prop` 使用：
-
-`staticScope=false`
-
-所以 LSPosed 不会把作用域锁死。代码结构也把目标与规则拆成 `TargetSpec / TargetRegistry / HookRule / HookEngine`，以后扩展别的包或新增规则只需要加 TargetSpec/HookRule，不用重写 Hook 引擎。
+新增应用时，优先增加新的 `TargetSpec` 和 `HookRule`，而不是把包名、类名和方法名继续堆进模块入口。
 
 ## 构建
 
-需要 Android SDK 37、JDK 21，依赖 Modern Xposed API 102：
+当前工程使用：
+
+- Android Gradle Plugin 9.2.1
+- Gradle 9.4.1
+- Android SDK 37
+- JDK 21
+- Modern Xposed API 102
+
+仓库没有依赖本地 Android Studio。GitHub Actions 会自动安装构建环境，并同时构建 Debug APK 与未签名 Release APK。
+
+本地已有 Gradle 9.4.1 和 Android SDK 时可以执行：
 
 ```bash
-./gradlew :app:assembleRelease
+gradle :app:assembleDebug :app:assembleRelease
 ```
 
-产物通常在：
+产物位于：
 
-`app/build/outputs/apk/release/app-release.apk`
+```text
+app/build/outputs/apk/debug/
+app/build/outputs/apk/release/
+```
 
-## 运行时验证
+其中 Debug APK 带默认调试签名，可直接用于测试；Release APK 默认未配置发布签名。
 
-建议先在 LSPosed 日志中过滤：
+## LSPosed 推荐作用域
 
-`PipeAdBlocker`
+当前 `META-INF/xposed/scope.list` 包含：
 
-正常情况下会看到：
+```text
+com.bzdjl.lyxn.tg
+```
 
-- `target ready`
-- `installed ... forced-ad hook(s)`
-- 触发广告点时 `blocked forced ad: com.adv.core.AdsManager#...`
+后续支持新应用时继续追加包名即可。
 
-如果 SecNeo 延迟加载真实 DEX，会先看到 `installed deferred class-loader watcher for protected DEX`，随后在 `AdsManager` 真正装载时自动补 Hook。
+## License
+
+MIT License. See [`LICENSE`](./LICENSE).
